@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan de Entrenamiento - Leonel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        infit: {
+                            black: '#0a0a0a',
+                            dark: '#1a1a1a',
+                            gold: '#fbbf24', // Amber-400 equivalent resembling gold
+                            goldhover: '#d97706',
+                            white: '#f5f5f5',
+                            gray: '#404040'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(251, 191, 36, 0.1);
+        }
+        .exercise-card {
+            transition: all 0.3s ease;
+        }
+        .exercise-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(251, 191, 36, 0.4);
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.1);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #404040;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #fbbf24;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-gray-800 shadow-lg">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tighter text-infit-white">
+                    IN<span class="text-infit-gold">FIT</span>
+                </h1>
+                <p class="text-xs text-gray-400 tracking-widest">TU MEJOR VERSIÓN</p>
+            </div>
+            <div class="text-right">
+                <div class="text-sm font-semibold text-infit-gold">Hola, Leonel</div>
+                <div class="text-xs text-gray-400">Nivel 1 • Ajuste</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Info Banner -->
+    <div class="bg-gradient-to-r from-infit-dark to-black border-b border-gray-800">
+        <div class="max-w-4xl mx-auto px-4 py-6">
+            <div class="grid grid-cols-2 gap-4 text-center md:text-left">
+                <div>
+                    <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Duración</p>
+                    <p class="text-sm font-medium">05 Ene 2026 - 05 Feb 2026</p>
+                </div>
+                <div class="text-right md:text-left">
+                    <p class="text-gray-500 text-xs uppercase tracking-wider mb-1">Frecuencia</p>
+                    <p class="text-sm font-medium text-infit-gold">4 Días / Semana</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl mx-auto px-4 py-8 w-full">
+        
+        <!-- Day Selector -->
+        <div class="flex overflow-x-auto pb-4 gap-2 mb-6 scrollbar-hide" id="daySelector">
+            <!-- Buttons injected by JS -->
+        </div>
+
+        <!-- Current Day View -->
+        <div id="workoutContainer" class="space-y-6">
+            <!-- Content injected by JS -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 bg-infit-dark mt-auto">
+        <div class="max-w-4xl mx-auto px-4 py-8 text-center">
+            <p class="text-infit-gold font-bold text-lg mb-2">INFIT</p>
+            <p class="text-gray-500 text-sm mb-4">La clave del éxito es la constancia y la disciplina.</p>
+            <p class="text-xs text-gray-600">© 2026 InFit Training System</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        const schedule = [
+            {
+                id: 'lunes',
+                label: 'Lunes',
+                focus: 'Pecho + Bíceps',
+                description: 'Enfoque en empujes y flexión de brazo.',
+                cardio: '10 a 15 min - Ritmo ligero',
+                exercises: [
+                    { name: 'Press Horizontal (Barra)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Press Inclinado (Barra)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Press Declinado (Mancuerna)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Peck Deck (Mariposa)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Curl de Bíceps (Máquina)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Curl Martillo (Mancuerna)', sets: '4', reps: '15/12/10/8', rest: '1 min' }
+                ],
+                abs: [
+                    { name: 'Encogimientos (en banco)', dosage: '4 Series - 10 Reps' }
+                ]
+            },
+            {
+                id: 'martes',
+                label: 'Martes',
+                focus: 'Pierna Completa',
+                description: 'Construcción de base sólida en tren inferior.',
+                cardio: '10 a 15 min - Ritmo ligero',
+                exercises: [
+                    { name: 'Extensiones de Pierna', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Sentadilla (Barra)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Flexiones (Curl Femoral/Isquios)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Peso Muerto (Barra)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Costurera (Pantorrilla)', sets: '4', reps: '15/12/10/8', rest: '1 min' }
+                ],
+                abs: [
+                    { name: 'Crunch Abdominal', dosage: '4 Series - 15 Reps' }
+                ]
+            },
+            {
+                id: 'viernes',
+                label: 'Viernes',
+                focus: 'Espalda + Tríceps',
+                description: 'Tracciones y empujes cerrados.',
+                cardio: '10 a 15 min - Ritmo ligero',
+                exercises: [
+                    { name: 'Jalón Abierto (Polea)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Jalón Cerrado (Polea)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Remo Sentado (Polea)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Remo con Barra', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Press Cerrado (Barra)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Press Francés (Barra)', sets: '4', reps: '15/12/10/8', rest: '1 min' }
+                ],
+                abs: [
+                    { name: 'Tijeras Horizontales', dosage: '4 Series - 10 Reps c/u' },
+                    { name: 'Tijeras Verticales', dosage: '4 Series - 10 Reps c/u' }
+                ]
+            },
+            {
+                id: 'sabado',
+                label: 'Sábado',
+                focus: 'Hombro',
+                description: 'Deltoides completos y trapecio.',
+                cardio: '10 a 15 min - Ritmo ligero',
+                exercises: [
+                    { name: 'Press Militar (Mancuerna)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Elevaciones Laterales', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Elevaciones Frontales', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Vuelos (Pájaros/Posterior)', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Press Arnold', sets: '4', reps: '15/12/10/8', rest: '1 min' },
+                    { name: 'Encogimientos (Polea)', sets: '4', reps: '15/12/10/8', rest: '1 min' }
+                ],
+                abs: [
+                    { name: 'Encogimientos (en banco)', dosage: '4 Series - 10 Reps' }
+                ]
+            }
+        ];
+
+        let activeDayId = 'lunes';
+
+        function generateYouTubeLink(exerciseName) {
+            const query = encodeURIComponent(`tecnica ejercicio ${exerciseName} gym`);
+            return `https://www.youtube.com/results?search_query=${query}`;
+        }
+
+        function renderDaySelector() {
+            const container = document.getElementById('daySelector');
+            container.innerHTML = schedule.map(day => {
+                const isActive = day.id === activeDayId;
+                return `
+                    <button 
+                        onclick="setActiveDay('${day.id}')"
+                        class="flex-shrink-0 px-6 py-3 rounded-lg text-sm font-bold transition-all duration-300 ${
+                            isActive 
+                            ? 'bg-infit-gold text-black shadow-lg shadow-yellow-500/20 transform scale-105' 
+                            : 'bg-infit-dark text-gray-400 border border-gray-800 hover:border-infit-gold hover:text-infit-gold'
+                        }"
+                    >
+                        ${day.label}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function renderWorkout() {
+            const container = document.getElementById('workoutContainer');
+            const day = schedule.find(d => d.id === activeDayId);
+            
+            if (!day) return;
+
+            // Header Section of the day
+            let html = `
+                <div class="glass-panel p-6 rounded-2xl mb-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <i class="fas fa-dumbbell text-9xl text-infit-gold"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <h2 class="text-3xl font-bold text-white mb-2">${day.focus}</h2>
+                        <p class="text-gray-400 text-sm mb-4 max-w-md">${day.description}</p>
+                        <div class="inline-flex items-center bg-black/30 px-3 py-1 rounded-full border border-gray-700">
+                            <i class="fas fa-heart-pulse text-infit-gold mr-2 text-xs"></i>
+                            <span class="text-xs text-gray-300">Cardio: ${day.cardio}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Exercises List
+            html += `<div class="space-y-4">`;
+            
+            day.exercises.forEach((ex, index) => {
+                const vidLink = generateYouTubeLink(ex.name);
+                html += `
+                    <div class="exercise-card bg-infit-dark p-5 rounded-xl border border-gray-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-infit-gold text-black flex items-center justify-center font-bold text-sm">
+                                ${index + 1}
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-white">${ex.name}</h3>
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    <span class="text-xs bg-gray-800 px-2 py-1 rounded text-gray-300 border border-gray-700">
+                                        <i class="fas fa-layer-group mr-1 text-infit-gold"></i>${ex.sets} Series
+                                    </span>
+                                    <span class="text-xs bg-gray-800 px-2 py-1 rounded text-gray-300 border border-gray-700">
+                                        <i class="fas fa-rotate mr-1 text-infit-gold"></i>${ex.reps} Reps
+                                    </span>
+                                    <span class="text-xs bg-gray-800 px-2 py-1 rounded text-gray-300 border border-gray-700">
+                                        <i class="fas fa-stopwatch mr-1 text-infit-gold"></i>${ex.rest} Descanso
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="${vidLink}" target="_blank" class="w-full sm:w-auto text-center px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-infit-gold text-sm font-medium transition-colors border border-gray-700 hover:border-infit-gold group">
+                            <i class="fab fa-youtube mr-2 group-hover:text-red-500 transition-colors"></i>Ver Tutorial
+                        </a>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+
+            // Abs Section
+            if (day.abs && day.abs.length > 0) {
+                html += `
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold text-infit-gold mb-4 flex items-center">
+                            <i class="fas fa-fire mr-2"></i> Zona Core & Abdomen
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                `;
+                day.abs.forEach(ab => {
+                     const vidLink = generateYouTubeLink(ab.name);
+                     html += `
+                        <div class="bg-gradient-to-br from-gray-900 to-black p-4 rounded-xl border border-gray-800 relative overflow-hidden">
+                             <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-white">${ab.name}</h4>
+                                <a href="${vidLink}" target="_blank" class="text-gray-500 hover:text-infit-gold"><i class="fas fa-play-circle"></i></a>
+                             </div>
+                            <p class="text-sm text-infit-gold">${ab.dosage}</p>
+                        </div>
+                     `;
+                });
+                html += `</div></div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function setActiveDay(id) {
+            activeDayId = id;
+            renderDaySelector();
+            renderWorkout();
+        }
+
+        // Initialize
+        renderDaySelector();
+        renderWorkout();
+
+    </script>
+</body>
+</html>
